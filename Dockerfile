@@ -10,6 +10,7 @@ RUN apt-get update \
 COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Release -o /out
+RUN ls -la /out/wwwroot
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
