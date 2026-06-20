@@ -13,6 +13,7 @@ import { UserModel } from './user.model';
 import { Rank } from './Rank.model';
 import { Role } from './role.model';
 import { ExploreArticle } from './finalarticle.model';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +23,7 @@ export class DatabaseService {
   constructor(private http: HttpClient) { }
 
   //readonly baseURL = "http://twojanaha-001-site1.gtempurl.com"
-  readonly baseURL = "http://localhost:5196";
+  readonly baseURL = environment.apiUrl;
   getDepList(): Observable<ExploreArticle[]> {
     return this.http.get<ExploreArticle[]>(this.baseURL + '/api/Article');
   }
@@ -239,7 +240,7 @@ export class DatabaseService {
   uploadImage(formData: FormData) {
     var url = this.baseURL + '/api/Upload';
     return this.http.post(url, formData, { reportProgress: true, observe: 'events' })
-      
+
   }
 
   makeImageUrl(path: string): string {
