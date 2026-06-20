@@ -96,10 +96,12 @@ app.Use(async (ctx, next) =>
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-app.UseStaticFiles();
+var resourcesPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources");
+Directory.CreateDirectory(resourcesPath);
+
 app.UseStaticFiles(new StaticFileOptions()
 {
-    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+    FileProvider = new PhysicalFileProvider(resourcesPath),
     RequestPath = new PathString("/Resources")
 });
 
