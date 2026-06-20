@@ -95,7 +95,7 @@ app.Use(async (ctx, next) =>
 });
 
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+app.UseStaticFiles();
 var resourcesPath = Path.Combine(Directory.GetCurrentDirectory(), "Resources");
 Directory.CreateDirectory(resourcesPath);
 
