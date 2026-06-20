@@ -1,0 +1,7 @@
+bin/
+obj/
+ClientApp/node_modules/
+ClientApp/dist/
+.git/
+.idea/
+.vs/
