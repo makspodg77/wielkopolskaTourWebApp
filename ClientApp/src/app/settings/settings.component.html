@@ -1,0 +1,58 @@
+<div id="passwordchangecontainer" style="display: none;">
+  <div class="mainheader" style="font-size: 2rem; margin-bottom: 15px;">Zmiana hasła</div>
+  <label class="greytext">Aktualne hasło:</label>
+  <input class="form-control" type="password" id="actualPasswordInput" style="margin-bottom: 15px;"/>
+  <label class="greytext">Nowe hasło:</label>
+  <input class="form-control" type="password" id="newPasswordInput" style="margin-bottom: 15px;"/>
+  <label class="greytext">Powtórz nowe hasło:</label>
+  <input class="form-control" type="password" id="rePasswordInput" style="margin-bottom: 15px;"/>
+  <div class="passwordchangebuttoncontainer">
+    <button class="btn btn-primary" (click)="passwordChangeWindowService()">Anuluj</button>
+    <button class="btn btn-primary" (click)="changePassword()">Zmień hasło</button>
+  </div>
+</div>
+
+<div id="loginchangecontainer" style="display: none;">
+  <div class="mainheader" style="font-size: 2rem; margin-bottom: 15px;">Zmiana loginu</div>
+  <label class="greytext">Nowy login:</label>
+  <input class="form-control" type="password"  style="margin-bottom: 15px;" />
+  <div class="passwordchangebuttoncontainer">
+    <button class="btn btn-primary" (click)="loginChangeWindowService()">Anuluj</button>
+    <button class="btn btn-primary">Zmień login</button>
+  </div>
+</div>
+
+<div id="nicknamechangecontainer" style="display: none;">
+  <div class="mainheader" style="font-size: 2rem; margin-bottom: 15px;">Zmiana nazwy użytkownika</div>
+  <label class="greytext">Nowa nazwa użytkownika:</label>
+  <input class="form-control" type="password"  style="margin-bottom: 15px;" />
+  <div class="passwordchangebuttoncontainer">
+    <button class="btn btn-primary" (click)="nicknameChangeWindowService()">Anuluj</button>
+    <button class="btn btn-primary">Zmień login</button>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 150px;">
+  <div class="row">
+    <div class="main">
+      <div class="optionscontainer">
+        <div class="mainheader">Ustawienia użytkownika</div>
+        <div class="optionrow">
+          <div class="header"><div class="greytext">Nazwa użytkownika:</div> {{ userData.nickname }}</div><button style="margin-left: 15px;" class="btn btn-primary" (click)="nicknameChangeWindowService()">zmień nazwę użytkownika</button>
+        </div>
+        <div class="optionrow">
+          <div class="header"><div class="greytext">Login:</div> {{ userData.login }}</div><button style="margin-left: 15px;" class="btn btn-primary" (click)="loginChangeWindowService()">zmień login</button>
+        </div>
+        <div class="optionrow">
+          <div class="header"><div class="greytext">Hasło:</div> ****** </div><button style="margin-left: 15px;" class="btn btn-primary" (click)="passwordChangeWindowService()">zmień hasło</button>
+        </div>
+        <div class="optionrow">
+          <div class="header"><div class="greytext">Rola konta:</div> {{ userData.role }}</div>
+        </div>
+        <div class="optionrow">
+          <div class="header"><div class="greytext">Usuń konto:</div></div><button style="margin-left: 15px;" class="btn btn-danger">Usuń konto</button>
+        </div>
+      </div>
+      </div>
+  </div>
+</div>

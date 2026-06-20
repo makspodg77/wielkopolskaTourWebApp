@@ -1,0 +1,102 @@
+.right {
+  width: calc(50% - 25px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: rgba(255, 255, 255, 0.74);
+  padding: 15px;
+  margin-left: 50px;
+}
+.validationError {
+    color: red;
+    font-size: 1rem;
+}
+.greytext {
+  display: inline;
+  color: #686869;
+}
+.left {
+  width: calc(50% - 25px);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: rgba(255, 255, 255, 0.74);
+  padding: 15px;
+  clear: both;
+}
+.container {
+  height: max-content;
+  display: flex;
+  word-break: break-word;
+  justify-content: flex-start;
+  align-items: stretch;
+  font-size: 1.3rem;
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    margin: auto;
+    height: max-content;
+    display: flex;
+    word-break: break-word;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 1.3rem;
+  }
+
+  .left {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgba(255, 255, 255, 0.74);
+    padding: 15px;
+    margin-bottom: 50px;
+  }
+
+  .right {
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgba(255, 255, 255, 0.74);
+    padding: 15px;
+    margin-left: 0;
+  }
+}
+  .mainheader {
+    font-size: 3rem;
+    color: rgb(156, 133, 120);
+  }
+
+  .address {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  label {
+    margin-top: 15px;
+  }
+
+  .buttoncontainer {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .hourlabel {
+    color: rgb(156, 133, 120);
+  }
+
+  .hour {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+  }
+
+  .mapBtn {
+    cursor: pointer;
+    text-decoration: underline;
+    width: max-content;
+    color: rgb(156, 133, 120);
+  }
+
+  .secondaryheader {
+    font-size: 1.5rem;
+    margin-top: 15px;
+  }

@@ -1,0 +1,64 @@
+<div id="message" style="display: none;">
+  <div class="messagecontainer">
+    <div class="messageheader">
+    </div>
+    -
+    <div class="messageemail">
+    </div>
+  </div>
+  <div class="messagecontent">
+  </div>
+  <div class="buttoncontainer">
+    <button class="btn btn-danger" id="deleteBtn">
+      Usuń
+    </button>
+    <button class="btn btn-primary" (click)="closeMessage()">
+      Zamknij
+    </button>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 150px;">
+  <div class="main">
+    <div class="mainheader">Panel administratora</div>
+    <div class="optioncontainer">
+      <div style="width: 200px;">
+        Artykuły:
+      </div>
+        <div class="optionscontainer">
+          <div class="option" *ngFor="let article of articles">
+            {{ article.title }}
+            <button class="btn btn-primary" [routerLink]="['/app/edit', article.id]">Edytuj</button>
+          </div>
+        </div>
+      </div>
+    <div class="optioncontainer">
+      <div style="width: 200px;">
+        Wiadomości:
+      </div>
+        <div class="optionscontainer">
+          <div class="option" *ngFor="let message of messages">
+            {{ message.title }}
+            <button class="btn btn-primary" (click)="displayMessage(message)">Wyświetl</button>
+          </div>
+        </div>
+      </div>
+      <div class="optioncontainer">
+        <div style="width: 200px;">Użytkownicy:</div>
+        <div class="optionscontainer">
+          <div class="option" *ngFor="let user of users">
+            {{ user.fullName }}
+            <div class="useroptioncontainer">
+              <select class="form-select" (change)="valueChanges($event, user)">
+                <ng-container *ngFor="let role of roles">
+                  <option [value]="role.id" *ngIf="role.name === user.rank; else opcjaDruga" selected> {{role.name}} </option>
+                  <ng-template #opcjaDruga><option [value]="role.id"> {{role.name}} </option></ng-template>
+                </ng-container>
+              </select>
+              <button class="btn btn-danger" (click)="deleteUser(user.id)">Usuń</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

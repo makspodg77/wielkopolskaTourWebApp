@@ -1,0 +1,80 @@
+<div class="header-block"></div>
+<div class="header-background">
+  <div class="container" id="doris" >
+
+    <div class="header">
+      <button class="header-button" (click)="toggleMenu()">
+        <img src="./assets/menu2.png" class="user-image">
+      </button>
+      <div class="header-font">WIELKOPOLSKA TOUR</div>
+      <button class="header-button">
+        <img src="./assets/user.png" class="user-image" (click)="toggleUserMenu()">
+      </button>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<div class="footer-background">
+  <div class="container">
+    <div class="row">
+      <div class="footer">
+        <div class="footer1">
+          WIELKOPOLSKA <br /> TOUR
+        </div>
+        <div class="footer2">
+          <span class="footer-header">Twórcy Strony:</span>
+          <ul style="text-decoration: none; list-style-type: none;">
+            <li>Maksymilian Podgórski</li>
+
+          </ul>
+        </div>
+        <div class="footer3">
+          <span class="footer-header">Social Media:</span>
+          <ul class="links" style="list-style: none; line-height: 2rem;">
+            <li><img src="../assets/facebook.png" style="height: 20px; width: 20px; margin-right: 5px;" />Facebook</li>
+            <li><img src="../assets/instagram.png" style="height: 20px; width: 20px; margin-right: 5px;" />Instagram</li>
+            <li><img src="../assets/twitter.png" style="height: 20px; width: 20px; margin-right: 5px;" />Twitter</li>
+            <li><img src="../assets/linkedin.png" style="height: 20px; width: 20px; margin-right: 5px;" />Linkedin</li>
+          </ul>
+        </div>
+        <div class="footer4">
+          All Rights Reserved&#174; <br />2026 Maksymilian Podgórski Inc.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu col-sm-2" [@menuToggle]="isOpen ? 'open' : 'close'">
+    <div class="position-check">
+      <button (click)="toggleMenu()" class="header-button">
+        <img src="./assets/close.png" class="menu-image">
+      </button>
+      <input (keyup.enter)="searchUrl()" class="form-control menu-input" id="searchbar" style="border-radius: 0; margin-top: 15px; margin-bottom:30px;" [(ngModel)]="ex" placeholder="Szukaj artykułu...">
+      <ul class="links list-group list-group-flush menu-list" style="list-style-type: none; background-color: none;">
+        <li routerLink="main" style="display: flex; align-items: center; gap: 10px;"><img id="mainpage" src="./assets/home.png" class="menu-image" /><div class="mainpage">Strona główna</div></li>
+        <li (click)="routeToExplore()" style="display: flex; align-items:center; gap: 10px;"><img id="allarticles" src="./assets/loupe.png" class="menu-image" /><div class="allarticles">Wszystkie artykuły</div></li>
+        <li routerLink="create" style="display: flex; align-items: center; gap: 10px;"><img id="addarticle" src="./assets/edit.png" class="menu-image" /><div class="addarticle">Dodaj artykuł</div></li>
+        <li style="display: flex; align-items: center; gap: 10px;"><img id="aboutproject" src="./assets/info.png" class="menu-image" /><div class="aboutproject">O projekcie </div></li>
+        <li routerLink="contact" style="display: flex; align-items: center; gap: 10px;"><img id="contact" src="./assets/contact-mail.png" class="menu-image" /><div class="contact">Kontakt</div></li>
+      </ul>
+      All Rights Reserved&#174; 2023
+    </div>
+  </div>
+</div>
+<div class="menu-user" style="text-align: right;" [@menuUserToggle]="isOpen2 ? 'open' : 'close'">
+  <div class="position-check">
+    <div class="position-check">
+      <div class="position-check">
+        <button (click)="toggleUserMenu()" class="header-button">
+          <img src="./assets/close.png" class="menu-image">
+        </button>
+        <div class="user-name">Witaj, {{ User.fullName }} </div>
+        <ul class="links list-group list-group-flush menu-list" style="list-style-type: none; background-color: none; width: 100%;">
+          <li *ngIf="userRole == 'Admin'" class="menu-doris" routerLink="admin"><div class="aboutproject">Panel sterowania</div><img id="aboutproject" src="./assets/analytics.png" class="menu-image" /></li>
+
+          <li class="menu-doris" routerLink="settings"><div class="aboutproject">Ustawienia</div><img id="aboutproject" src="./assets/settings.png" class="menu-image" /></li>
+          <li class="menu-doris" (click)="logout()"><div class="contact">Wyloguj</div><img id="contact" src="./assets/exit.png" class="menu-image" /></li>
+        </ul>
+        All Rights Reserved&#174; 2023
+      </div>
+    </div>

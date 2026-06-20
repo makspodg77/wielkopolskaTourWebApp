@@ -1,0 +1,126 @@
+<div id="category-container" *ngIf="canOpen">
+  <div id="categories">
+    <button class="categorywindow" *ngFor="let cattegory2 of ActualList" style="background-color: green;" (click)="ClickService(cattegory2.id)" id="{{cattegory2.id}}">
+      {{cattegory2.type}}
+    </button>
+    <button class="categorywindow" *ngFor="let cattegory of NotActiveAttractionsList" style="background-color: red;" (click)="ClickService(cattegory.id)" id="{{cattegory.id}}">
+      {{cattegory.type}}
+    </button>
+  </div>
+  <div class="categories-menu">
+    <button class="btn btn-primary" (click)="CloseMenu()">Zamknij</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="phone-container">
+    <div class="main-container">
+      <div class="ownerOptions">
+        <button class="btn btn-danger" (click)="deleteArticle()">Usuń</button>
+        <button class="btn btn-primary" (click)="showAtrakcjeMenu()">Dodaj/Usuń Atrakcje</button>
+        <button class="btn btn-primary" (click)="updateArticle()">Zapisz</button>
+      </div>
+      <div class="left-container">
+        <div class="main-content">
+          <div class="header">Edytuj artykuł</div>
+          <div class="info">
+            <div class="info-header greytext">
+              Tytuł:
+            </div>
+            <div class="info-counter greytext" *ngIf="Article !== null" id="titleCounter">
+              {{Article.title.length}}/{{MAX_TITLE_LENGTH}}
+            </div>
+          </div>
+          <div class="main-header" style="font-size: 2rem; font-weight: 400">
+            <textarea style="margin-bottom: 15px;" class="form-control" id="ta1" (keydown)="countCharacters('ta1', MAX_TITLE_LENGTH, 'titleCounter')" (keyup)="countCharacters('ta1', MAX_TITLE_LENGTH, 'titleCounter')" (keypress)="countCharacters('ta1', MAX_TITLE_LENGTH, 'titleCounter')">{{Article.title}}</textarea>
+          </div>
+          <div id="titleError">
+
+          </div>
+          <div class="info">
+            <div class="info-header greytext">
+              Treść:
+            </div>
+            <div class="info-counter greytext" *ngIf="Article !== null" id="contentCounter">
+              {{Article.content.length}}/{{MAX_CONTENT_LENGTH}}
+            </div>
+          </div>
+          <div class="main-text" style="margin: 0;">
+            <textarea class="form-control" id="ta2" style="height: 500px;" (keypress)="countCharacters('ta2', MAX_CONTENT_LENGTH, 'contentCounter')" (keyup)="countCharacters('ta2', MAX_CONTENT_LENGTH, 'contentCounter')" (keydown)="countCharacters('ta2', MAX_CONTENT_LENGTH, 'contentCounter')">{{Article.content}}</textarea>
+          </div>
+          <div id="contentError">
+
+          </div>
+        </div>
+        <div class="main-content" style="margin-top: 50px;">
+          <div class="info">
+            <div class="info-header greytext">
+              Link do mapy:
+            </div>
+          </div>
+          <input class="form-control" style="margin-bottom: 15px;" id="mapInput" (input)="onSearchChange($event)" />
+          <div id="mapError">
+
+          </div>
+          <div class="info">
+            <div class="info-header greytext">
+              Podgląd:
+            </div>
+          </div>
+          <iframe *ngIf="mapLink !== null" [src]="mapLink" class="map"></iframe>
+        </div>
+      </div>
+        <div class="right_container">
+          <div class="main-genres">
+            <span class="greytext">
+              W tym artykule inni użytkownicy znajdą następujące atrakcje:
+            </span>
+            <ul style="list-style: none;">
+              <li class="typeList" *ngFor="let attraction of ArticlesAttractions" [innerHTML]="attraction.type">
+              </li>
+            </ul>
+            <div id="attractionError">
+
+            </div>
+          </div>
+          <div class="main-user" style="padding: 0;">
+            <div style="padding: 15px;">
+              <div class="greytext" style="display: flex; flex-direction: row; justify-content: space-between;">
+                <span>Zdjęcia artykułu</span>
+                <span>{{Pictures.length}}/{{MAX_IMAGE_NUMBER}}</span>
+              </div>
+              <input type="file" class="form-control" id="file" style="margin-top: 15px;" (change)="coochie($event)" />
+              <ul style="list-style: none;">
+                <li class="typeList" *ngFor="let picture of Pictures">{{picture.name}} <button class="btn btn-close" (click)="removeImage(picture.name)"></button></li>
+              </ul>
+            </div>
+              <div *ngIf="Pictures.length > 0" id="carouselExampleIndicators" class="carousel slide photo-container" style="display: block"  data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                  <li data-target="#carouselExampleIndicators" *ngFor="let picture of Pictures.slice(1, Pictures.length);let i = index" data-slide-to="(i+1)"></li>
+                </ol>
+
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img class="d-block w-100" *ngIf="Pictures[0].funnyshowoff !== undefined" [src]="Pictures[0].funnyshowoff" />
+                      <img class="d-block w-100" *ngIf="Pictures[0].id !== 0" [src]="Pictures[0].imageCode" />
+                    </div>
+                    <div class="carousel-item" *ngFor="let picture of Pictures.slice(1, Pictures.length)">
+                      <img class="d-block w-100" *ngIf="picture.funnyshowoff !== undefined" [src]="picture.funnyshowoff" />
+                      <img class="d-block w-100" *ngIf="picture.id !== 0" [src]="picture.imageCode" />
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Poprzednie</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="sr-only">Następne</span>
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  </a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

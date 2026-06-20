@@ -1,0 +1,38 @@
+<div class="container" style="margin-top: 150px;">
+  <div class="left">
+    <div class="mainheader">Kontakt</div>
+    <div class="address">
+      ul. Mikołaja Reja 21, 72-100 Goleniów
+      </div>
+      <div class="mapBtn" (click)="mapFlag = !mapFlag">Zobacz na mapie</div>
+      <iframe *ngIf="mapFlag" src="https://www.google.com/maps/embed?pb=!4v1683827500260!6m8!1m7!1sBuPaN3sJCbOJ-TNrMaDGjw!2m2!1d53.55516529703072!2d14.83511514765503!3f262.665188052524!4f7.018345208184812!5f0.7820865974627469" style="border:0; height:330px; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+      <div class="secondaryheader">Jesteśmy dostępni w dniach:</div>
+    <div class="hours">
+      <div class="hour">
+        <div class="hourlabel">poniedziałek - piątek:</div>
+        08:00 - 16:00
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="mainheader">Napisz do nas</div>
+    <label class="greytext">Tytuł:</label>
+    <input class="form-control" id="titleInput" required />
+    <div id="titleValidationError" class="validationError"></div>
+    <label class="greytext">Treść:</label>
+    <textarea class="form-control" style="height: 260px;" id="contentInput" required></textarea>
+    <div id="contentValidationError" class="validationError"></div>
+    <label class="greytext">Email:</label>
+    <input class="form-control" id="emailInput" required />
+    <div id="emailValidationError" class="validationError"></div>
+    <div class="buttoncontainer">
+      <button class="btn btn-primary" (click)="clearInputs()">
+        Wyczyść
+      </button>
+      <button class="btn btn-primary" (click)="postMessage()">
+        Wyślij
+      </button>
+    </div>
+  </div>
+</div>

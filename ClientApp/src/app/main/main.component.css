@@ -1,0 +1,201 @@
+* {
+    box-sizing: border-box;
+}
+.row {
+  --bs-gutter-x: 0;
+}
+.background-image {
+  background-image: url('./wallpaperflare.com_wallpaper.jpg');
+  background-size: cover;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 35rem;
+  color: rgb(29, 29, 29);
+  text-align: right;
+  padding-right: 0;
+  font-weight: 350;
+  font-size: 3.5em;
+  line-height: 2.5em;
+}
+@media screen and (max-width: 500px) {
+  .background-image {
+    background-image: url('./wallpaperflare.com_wallpaper.jpg');
+    background-size: cover;
+    box-sizing: border-box;
+    height: 35rem;
+    color: rgb(29, 29, 29);
+    text-align: right;
+    padding-right: 0;
+    font-weight: 300;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    font-size: 2.3em;
+    line-height: 1.5em;
+  }
+}
+  .typeList::before {
+    content: "•";
+    color: rgb(156, 133, 120);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em
+  }
+  .typeList {
+    margin: 15px 0 15px 0;
+  }
+
+  .daily-top {
+    background-color: rgba(255, 255, 255, 0.74);
+    vertical-align:central;
+  }
+.daily-top1 {
+  width: 35%;
+  height: 100%;
+  display: grid;
+  color: rgb(156, 133, 120);
+  place-items: center;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  font-size: 4rem;
+  float: left;
+}
+
+  @media screen and (max-width: 990px) {
+    .daily-top1 {
+      width: 100%;
+      height: auto;
+      display: grid;
+      color: rgb(156, 133, 120);
+      place-items: center;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      font-size: 2em;
+    }
+  }
+
+  .daily-top2 {
+    width: 30%;
+    float: left;
+    font-weight: 300;
+  }
+@media screen and (max-width: 990px) {
+  .daily-top2 {
+    width: 100%;
+    font-weight: 300;
+  }
+}
+  .first-title-background {
+    float: right;
+    display: grid;
+    place-items: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 100%;
+    mix-blend-mode: screen;
+    background-color: rgba(255, 255, 255, 0.74);
+  }
+
+  .article {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    max-width: 300px;
+    cursor: pointer;
+  }
+
+.article-content {
+  height: 70%;
+  overflow: hidden;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  text-overflow: ellipsis;
+}
+
+  .article-header {
+    width: 100%;
+    height: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    font-size: 1.2em;
+    padding: 15px;
+  }
+
+  .article-header2 {
+    width: 30%;
+    height: 30%;
+    float: left;
+  }
+
+  .article-header21 {
+    width: 100%;
+    height: 50%;
+    float: left;
+    padding: 15px;
+    text-align: right;
+    box-sizing: border-box;
+  }
+
+  .article-header22 {
+    width: 100%;
+    height: 50%;
+    float: left;
+    text-align: right;
+    padding: 15px;
+    box-sizing: border-box;
+  }
+
+  .article-image {
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .article-container {
+    padding: 15px;
+    display: grid;
+    max-height: 400px;
+    max-width: 400px;
+    place-items: center;
+  }
+
+  .icon-image {
+    width: 15px;
+    height: 15px;
+    float: left;
+  }
+
+.trending-topic {
+  background-color: rgba(255, 255, 255, 0.74);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: inline-block;
+}
+
+  .trending-topic-header {
+    font-size: 2.5rem;
+    padding-left: 15px;
+    color: rgb(156, 133, 120);
+  }
+
+  .trending-topic-content {
+    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media screen and (max-width: 990px) {
+    .trending-topic-content {
+      display: flex;
+      flex-direction: column;
+      align-content: flex-start;
+    }
+  }
+
+  .trending-topic-content1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

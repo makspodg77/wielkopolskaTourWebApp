@@ -7,7 +7,7 @@ RUN apt-get update \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-COPY Project1/. .
+COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Release -o /out
 
@@ -19,4 +19,4 @@ COPY --from=build /out .
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "Project1.dll"]
+ENTRYPOINT ["dotnet", "wielkopolskaTourWebApp.dll"]

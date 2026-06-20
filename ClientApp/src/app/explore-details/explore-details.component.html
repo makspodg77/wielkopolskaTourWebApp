@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="phone-container">
+    <div class="main-container">
+      <div class="ownerOptions" *ngIf="Article.userId === UserId.id">
+        <button class="btn btn-primary" [routerLink]="['/app/edit', ArticlesId]">Edytuj</button>
+      </div>
+      <div class="main-content">
+        <div class="main-header typing-demo" style="font-size: 2.8rem; font-weight: 400; word-break: break-word;" [innerHTML]="Article.title">
+        </div>
+        <div class="line"></div>
+        <div class="date">
+          <span class="greytext">Dodano:</span> {{Article.date | date: 'd MMMM YYYY, h:mm':"":"pl" }}
+</div>
+        <div class="main-likes">
+          <span class="greytext">Polubień:</span> {{likesNumber}}<span *ngIf="canLike" (click)="AddLike()" style="margin: auto; margin-left: 15px; width: 25px; height: 25px; cursor: pointer;">👍</span>
+        </div>
+        <div class="main-text" style="word-break: break-word;" [innerHTML]="Article.content">
+        </div>
+      </div>
+
+      <div class="right_container">
+        <div class="main-genres greytext">
+          W tym artykule znajdziesz następujące atrakcje:
+          <ul style="list-style: none; color: initial">
+            <li class="typeList" *ngFor="let attraction of ArticlesAttractions" [innerHTML]="attraction.type">
+            </li>
+          </ul>
+        </div>
+        <div class="main-user">
+          <div class="profile_image">
+            <img src="./assets/user.png">
+          </div>
+          <div class="profile_name nickname-font">
+            {{ AuthorsName }}
+          </div>
+          <div class="profile_line">
+          </div>
+          <div class="">
+            <div class="profile_option"><div class=greytext>Dodanych artykułów:</div> {{ numberOfArticlesByUser }}</div>
+            <div class="profile_option"><div class=greytext>Polubionych artykułów:</div> {{ numberOfLikedArticlesByUser }}</div>
+            <div class="profile_option"><div class=greytext>Dodanych komentarzy:</div> {{ numberOfCommentsByUser }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-content" style="margin-top: 50px;" *ngIf="mapLink !== null && mapLink !== '' && mapLink !== undefined">
+        <div class="secondary-header">
+          Trasa wycieczki
+        </div>
+        <iframe [src]="mapLink" class="map"></iframe>
+      </div>
+
+
+      <div *ngIf="Pictures.length > 1" id="carouselExampleIndicators" class="carousel slide photo-container" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="comments-container" style="margin: 0;">
+          <div class="secondary-header">
+            Galeria zdjęć
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" [src]="FirstPicture">
+            </div>
+            <div class="carousel-item" *ngFor="let picture of PicturesSrc">
+              <img class="d-block w-100" [src]="picture">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Poprzednie</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="sr-only">Następne</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+
+
+      <div class="comments-container">
+        <div class="add-comment">
+          <div class="secondary-header" style=" width: 100%;">
+            Komentarze ({{AllComments.length}})
+          </div>
+          <div class="write-comment-grid">
+            <textarea [(ngModel)]="newComment.content" style="resize: none;" class="form-control" placeholder="Skomentuj"></textarea>
+            <button class="btn btn-primary add-comment-button" (click)="addComment()">Dodaj</button>
+          </div>
+        </div>
+        <div class="comment" *ngFor="let comment of AllUsableComments">
+          <div class="comment-grid">
+            <div class="comment-top">
+              <span class="commenters-name" [innerHTML]="comment.fullName">
+              </span>
+              <span class="comment-date">
+                {{comment.dateAdded | date: 'd MMMM YYYY, h:mm':"":"pl" }}
+              </span>
+            </div>
+            <div class="comment-like">
+              Polubień: {{comment.likes}}
+              <img src="./assets/like.png" (click)="AddCommentLike(comment.id)" style=" width: 25px; height: 25px; cursor: pointer;">
+            </div>
+          </div>
+          <div class="comment-content" [innerHTML]="comment.content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

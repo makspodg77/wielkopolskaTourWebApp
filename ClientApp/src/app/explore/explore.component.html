@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="main">
+    <div class="main-header-block">
+      <div class="main-header">
+        <div>{{ text }}</div>
+
+      </div>
+      <select class="form-select" style="width: 300px; margin-right: 15px;" id="selectInput" (change)="onChange($event)">
+        <option value="0">Tytuł: Rosnąco</option>
+        <option value="1">Tytuł: Malejąco</option>
+        <option value="2">Ilość polubień: Rosnąco</option>
+        <option value="3">Ilość polubień: Malejąco</option>
+        <option value="4">Data: Rosnąco</option>
+        <option value="5" selected>Data: Malejąco</option>
+        <option value="6">Ilość komentarzy: Rosnąco</option>
+        <option value="7">Ilość komentarzy: Malejąco</option>
+      </select>
+    </div>
+    <div class="main-content-block">
+      <div class="main-content">
+        <div class="article-container" *ngFor="let article of FinalFinalArticleList" [routerLink]="['/app/explore', article.id]">
+          <div class="article">
+            <div class="article-content">
+              <img [src]="article.image" class="article-image">
+            </div>
+            <div class="article-header">
+              {{article.title}}
+              <div class="article-read-more">
+                Czytaj więcej...
+              </div>
+            </div>
+            <div class="article-header2">
+              <div class="article-header21">
+                <img src="./assets/like.png" class="icon-image">{{article.likes}}
+              </div>
+              <div class="article-header22">
+                <img src="./assets/chat-comment-oval-speech-bubble-with-text-lines.png" class="icon-image">{{article.numberOfComments}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="stateOfComponent === 0" class="emptyarray"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+        <div *ngIf="stateOfComponent === 1" class="emptyarray">Brak artykułów!</div>
+        <div class="rowflex" *ngIf="nextPage">
+          <button class="btn btn-primary" (click)="moreArticles()">Więcej</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

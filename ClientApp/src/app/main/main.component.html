@@ -1,0 +1,43 @@
+<div class="container" style="margin-top: 150px;">
+  <div class="phone-container">
+    <div class="row" style="margin-bottom: 50px;">
+      <div class="background-image col-sm">
+        <div class="first-title-background px-3">
+          POZNAJ <br>WIELKOPOLSKĘ
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 50px;">
+      <div class="daily-top col-sm" style=" box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; ">
+        <div class="daily-top1">
+          NAJNOWSZY
+        </div>
+        <div class="daily-top2">
+          <div class="article-container">
+            <div class="article" [routerLink]="['/app/explore', newestArticleId]">
+              <div class="article-content">
+                <img [src]="newestArticle.image" class="article-image">
+              </div>
+              <div class="article-header">
+                {{ newestArticle.title}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="daily-top1">
+          ARTYKUŁ
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="trending-topic col-sm">
+        <div class="trending-topic-header">
+          Popularne w podróży
+        </div>
+        <div class="text" id="text" style="height: 350px; position: relative; color: transparent">
+          <div *ngIf="rankingType"><div class="typeList trending-topic-content1" *ngFor="let attraction of finalAttractionRanking">{{attraction.type}} - użyto {{attraction.number}} <span *ngIf="attraction.number !== 1">‎ razy</span><span *ngIf="attraction.number === 1">‎ raz</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
