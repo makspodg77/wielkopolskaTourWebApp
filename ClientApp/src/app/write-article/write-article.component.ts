@@ -59,7 +59,7 @@ export class WriteArticleComponent implements OnInit {
   progress!: number;
   message!: string;
     public onUploadFinished = (arr: string[]) => {
-      
+
     this.response = event;
         for (let i = 0; i < this.PicturesSrc.length; i++) {
             console.log(this.response);
@@ -243,25 +243,25 @@ export class WriteArticleComponent implements OnInit {
   async addArticle() {
     if (!this.validate())
       return;
-    
-    var id: any;
+
     var articleId: any;
-    this.service.getUserId().subscribe(data => {
-      id = data;
-      this.artykul.mapLink = (document.getElementById("mapInput") as HTMLInputElement).value;
-      this.artykul.userId = id.id;
-      this.service.createArtykul(this.artykul).subscribe(data => {
-          articleId = data.id;
-          this.ArticlesId = data.id;
-        if (this.PicturesSrc.length != 0) {
-          this.uploadFile(this.doris);
-        }
-        for (let i = 0; i < this.EditAttractions.length; i++) {
-          this.service.addAtrakcjArtykulu(articleId, this.EditAttractions[i].id).subscribe();
-          }
-          this.toastr.success("Pomyślnie dodane artykuł.", "Sukces!");
-      })
-    });
+    this.service.createArtykul(this.artykul).subscribe(data => {
+      articleId = data.id;
+      this.ArticlesId = data.id;
+
+      this.PicturesSrc.forEach((pic: any) => {
+        pic.articleId = articleId;
+        this.service.addImage(pic).subscribe({
+          next: (res) => console.log('Image saved:', res),
+          error: (err) => console.error('Image save FAILED:', err)
+        });
+      });
+
+      for (let i = 0; i < this.EditAttractions.length; i++) {
+        this.service.addAtrakcjArtykulu(articleId, this.EditAttractions[i].id).subscribe();
+      }
+      this.toastr.success("Pomyślnie dodane artykuł.", "Sukces!");
+    })
   }
   countCharacters(id: string, maximum: number, counter: string) {
     var obj = document.getElementById(id) as HTMLTextAreaElement;
@@ -281,20 +281,22 @@ export class WriteArticleComponent implements OnInit {
   async coochie(e: Event) {
     if (this.PicturesSrc.length >= 10)
       return;
-    
+
     const target = e.target as HTMLInputElement;
     if (target.files !== null && target.files?.length != 0) {
       let file = target.files[0];
-      this.doris.push(file);
-      var image = {};
       const reader = new FileReader();
       reader.onload = (e) => {
-        image = { 'id': 0, 'name': file.name, 'imageCode': '', 'articleId': this.ArticlesId };
+        const image = {
+          id: 0,
+          name: file.name,
+          imageCode: reader.result as string,
+          articleId: this.ArticlesId
+        };
         this.PicturesSrc.push(image);
 
         if (this.PicturesSrc.length >= 10)
           this.fileInput.disabled = true;
-
       }
       reader.readAsDataURL(file);
     }

@@ -243,14 +243,8 @@ export class DatabaseService {
 
   }
 
-  makeImageUrl(path: string): string {
-    var newPath = path.substring(0);
-    return this.baseURL + '/' + newPath;
-  }
-
-  getImage(imageId: number): Observable<any> {
-    var url = this.baseURL + '/api/Image/' + imageId;
-    return this.http.get<any>(url);
+  makeImageUrl(code: string): string {
+    return code;
   }
 
   likeExists(articleId: number, userId: string): Observable<boolean> {

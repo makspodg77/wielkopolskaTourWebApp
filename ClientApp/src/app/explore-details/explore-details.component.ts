@@ -12,7 +12,7 @@ import { Comment } from '../shared/comment.model';
   styleUrls: ['./explore-details.component.css']
 })
 export class ExploreDetailsComponent implements OnInit {
-  
+
   constructor(private service: DatabaseService, private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   newComment: Comment = new Comment();
@@ -33,7 +33,7 @@ export class ExploreDetailsComponent implements OnInit {
   NotActiveAttractionsList: any = [];
   EditAttractions: any = [];
   ArticlesId: any;
-  UserId: any;
+  UserId: any = {};
   isMap: boolean = false;
   Username: any;
   canLike: boolean = false;
@@ -42,19 +42,23 @@ export class ExploreDetailsComponent implements OnInit {
   numberOfArticlesByUser: number = 0;
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => this.ArticlesId = params['id']);
-    this.getArticle(this.ArticlesId);
-    this.getArticlesAttraction(this.ArticlesId);
-    this.getImages();
-    this.getComments(this.ArticlesId);
-    this.getAllAtrakcja();
-    this.getUserId();
+    this.route.params.subscribe(async params => {
+      this.ArticlesId = params['id'];
+      await this.getArticle(this.ArticlesId);
+      this.getArticlesAttraction(this.ArticlesId);
+      this.getImages();
+      this.getComments(this.ArticlesId);
+      this.getAllAtrakcja();
+      this.getUserId();
+    });
   }
-  
+
   async getUserId() {
     this.UserId = await new Promise<any>(resolve => {
       this.service.getUserId().subscribe(resolve);
     });
+    console.log('Article.userId:', this.Article.userId, typeof this.Article.userId);
+    console.log('UserId.id:', this.UserId.id, typeof this.UserId.id);
     this.service.likeExists(this.ArticlesId, this.UserId.id).subscribe(data => {
       this.canLike = data;
     });
@@ -89,8 +93,10 @@ export class ExploreDetailsComponent implements OnInit {
     for (let i = 0; i < this.Pictures.length; i++) {
       this.PicturesSrc.push(this.service.makeImageUrl(this.Pictures[i].imageCode));
     }
-    this.FirstPicture = this.PicturesSrc[0];
-    this.PicturesSrc.splice(0, 1);
+    if (this.PicturesSrc.length > 0) {
+      this.FirstPicture = this.PicturesSrc[0];
+      this.PicturesSrc.splice(0, 1);
+    }
   }
 
   public async getArticle(id: number) {
@@ -118,6 +124,7 @@ export class ExploreDetailsComponent implements OnInit {
     this.likesNumber = await new Promise<number>(resolve => {
       this.service.getArticlesLikes(this.ArticlesId).subscribe(resolve)
     });
+    console.log('Looking up author for userId:', this.Article.userId);
     this.Author = await new Promise<any>(resolve => {
       this.service.getUserById(this.Article.userId).subscribe(resolve)
     });
@@ -158,26 +165,5 @@ export class ExploreDetailsComponent implements OnInit {
     setTimeout(() => {
       window.location.reload();
     }, 300)
-  }
-
-  UpdateAttractions() {
-    this.WszystkieAtrakcje.forEach((elementN: any) => {
-      var flag: boolean = true;
-      this.EditAttractions.forEach((elementT: any) => {
-        if (elementT.id == elementN.id) {
-          this.service.addAtrakcjArtykulu(this.ArticlesId, elementN.id).subscribe(data => { });
-          flag = false;
-        }
-      });
-      if (flag) {
-        this.service.removeAtrakcjeArtykulu(this.ArticlesId, elementN.id).subscribe(data => { });
-      }
-    });
-    this.RefreshPage();
-  }
-
-  CloseMenu() {
-    var div = document.getElementById("category-container");
-    div!.style.display = "none";
   }
 }

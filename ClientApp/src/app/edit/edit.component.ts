@@ -47,9 +47,9 @@ export class EditComponent implements OnInit {
   fileInput!: HTMLInputElement;
   Username: any;
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe(async params => {
       this.ArticlesId = params['id'];
-      this.getArticle(this.ArticlesId);
+      await this.getArticle(this.ArticlesId);
       this.getArticlesAttraction(this.ArticlesId);
       this.getImages();
       this.getAllAtrakcja();
@@ -68,17 +68,17 @@ export class EditComponent implements OnInit {
     if (target.files !== null && target.files?.length != 0) {
       let file = target.files[0];
       var image = {};
-      
+
       const reader = new FileReader();
       reader.onload = (e) => {
         image = { 'id': 0, 'name': file.name, 'file': file, 'funnyshowoff': e.target!.result, 'articleId': this.ArticlesId };
         this.Pictures.push(image);
-        if (this.Pictures.length >= 10) 
+        if (this.Pictures.length >= 10)
           this.fileInput.disabled = true;
-        
+
       }
       reader.readAsDataURL(file);
- 
+
     }
   }
   userRole: string = "";
@@ -140,7 +140,7 @@ export class EditComponent implements OnInit {
         if (this.Pictures[i].name == this.originalPictures[j].name)
           flag = false;
       }
-      if (flag) 
+      if (flag)
         this.picturesToPost.push(this.Pictures[i].file as File);
     }
 
@@ -155,12 +155,12 @@ export class EditComponent implements OnInit {
         console.log(this.picturesToDelete);
       }
     }
-    if (this.picturesToDelete.length > 0) 
+    if (this.picturesToDelete.length > 0)
       this.removeImageFromDB(this.picturesToDelete);
-    
+
     if (this.picturesToPost.length > 0)
       this.uploadFile(this.picturesToPost);
-    
+
   }
 
   public async getArticle(id: number) {
@@ -171,7 +171,7 @@ export class EditComponent implements OnInit {
       this.mapLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.Article.mapLink);
       (document.getElementById("mapInput") as HTMLInputElement).value = this.Article.mapLink;
     }
-    else 
+    else
       this.mapLink = null;
     this.likesNumber = await new Promise<number>(resolve => {
       this.service.getArticlesLikes(this.ArticlesId).subscribe(resolve)
@@ -226,7 +226,7 @@ export class EditComponent implements OnInit {
 
   onSearchChange(searchValue: Event): void {
     const target = searchValue.target as HTMLInputElement;
-    if (target.value == "") 
+    if (target.value == "")
       this.mapLink = null;
     else
       this.mapLink = this.sanitizer.bypassSecurityTrustResourceUrl(target.value);
@@ -409,7 +409,7 @@ export class EditComponent implements OnInit {
           flag = false;
         }
       });
-      if (flag) 
+      if (flag)
         this.service.removeAtrakcjeArtykulu(this.ArticlesId, elementN.id).subscribe();
     });
   }

@@ -23,19 +23,8 @@ namespace Project1.Repository
 
         public bool DeleteImage(int id)
         {
-
             var image = _context.Images.Where(p => p.Id == id).FirstOrDefault();
-            var folderName = Path.Combine("wwwroot", "Resources", "Images");
-            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            var fileName = image.Name;
-            var fullPath = Path.Combine(pathToSave, fileName);
-
-            FileInfo file1 = new FileInfo(fullPath);
-            if (file1.Exists)
-            {
-                file1.Delete();
-            }
-
+            if (image == null) return false;
             _context.Images.Remove(image);
             return Save();
         }

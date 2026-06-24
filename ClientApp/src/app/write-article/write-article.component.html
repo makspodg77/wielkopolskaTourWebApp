@@ -93,10 +93,10 @@
 
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" [src]="PicturesSrc[0].funnyshowoff" />
+            <img class="d-block w-100" [src]="PicturesSrc[0].imageCode" />
           </div>
           <div class="carousel-item" *ngFor="let picture of PicturesSrc.slice(1, PicturesSrc.length)">
-            <img class="d-block w-100" [src]="picture.funnyshowoff" />
+            <img class="d-block w-100" [src]="picture.imageCode" />
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
