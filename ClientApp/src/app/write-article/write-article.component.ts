@@ -9,12 +9,13 @@ import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
 import $ from 'jquery';
 import * as bootstrap from 'bootstrap';
-
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-write-article',
   templateUrl: './write-article.component.html',
   styleUrls: ['./write-article.component.css']
 })
+
 
 
 export class WriteArticleComponent implements OnInit {
@@ -24,6 +25,13 @@ export class WriteArticleComponent implements OnInit {
   MAX_CONTENT_LENGTH: number = 2500;
   MAX_IMAGE_NUMBER: number = 10;
   MAX_ATTRACTION_NUMBER: number = 30;
+
+  getUserIdFromToken(): string | undefined {
+    const token = localStorage.getItem('token');
+    if (!token) return undefined;
+    const decoded: any = jwtDecode(token);
+    return decoded.UserID;
+  }
 
   constructor(private service: DatabaseService, private router: Router, private http: HttpClient, private toastr: ToastrService, private sanitizer: DomSanitizer) { }
   atrakcja: Attraction = new Attraction();
@@ -243,7 +251,7 @@ export class WriteArticleComponent implements OnInit {
   async addArticle() {
     if (!this.validate())
       return;
-
+    this.artykul.userId = this.getUserIdFromToken();
     var articleId: any;
     this.service.createArtykul(this.artykul).subscribe(data => {
       articleId = data.id;
